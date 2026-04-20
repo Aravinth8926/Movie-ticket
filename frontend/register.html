@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - CineBook</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <style>
+    .password-strength-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .strength-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .strength-fill.weak { width: 25%; background: #F84464; }
+    .strength-fill.fair { width: 50%; background: #F39C12; }
+    .strength-fill.good { width: 75%; background: #F5C518; }
+    .strength-fill.strong { width: 100%; background: #2ECC71; }
+    .strength-text {
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .strength-text.weak { color: #F84464; }
+    .strength-text.fair { color: #F39C12; }
+    .strength-text.good { color: #F5C518; }
+    .strength-text.strong { color: #2ECC71; }
+  </style>
+</head>
+<body>
+  
+  <div class="auth-page">
+    
+    <!-- LEFT PANEL -->
+    <div class="auth-left-panel">
+      <div class="film-strip-left">
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+      </div>
+      
+      <div class="auth-left-content">
+        <div class="cinema-logo-big">
+          <i data-lucide="film"></i>
+          <span>CineBook</span>
+        </div>
+        <blockquote class="cinema-quote">
+          Join thousands of movie lovers<br>and never miss a show
+        </blockquote>
+        <div class="floating-elements">
+          <div class="float-popcorn">🎬</div>
+          <div class="float-star">🎭</div>
+          <div class="float-ticket">🎪</div>
+        </div>
+      </div>
+      
+      <div class="film-strip-right">
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+      </div>
+    </div>
+    
+    <!-- RIGHT PANEL - FORM -->
+    <div class="auth-right-panel">
+      <div class="auth-form-container">
+        
+        <!-- Logo (mobile only) -->
+        <div class="mobile-logo">
+          <i data-lucide="film"></i>
+          <span>CineBook</span>
+        </div>
+        
+        <div class="auth-header">
+          <h1>Create Account</h1>
+          <p>Start your cinematic journey today</p>
+        </div>
+        
+        <!-- REGISTER FORM -->
+        <form class="auth-form" id="registerForm">
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="user"></i>
+              Full Name
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="fullName" 
+                class="form-input" 
+                placeholder="John Doe"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <span class="field-error" id="nameError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="mail"></i>
+              Email Address
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="email" 
+                id="email" 
+                class="form-input" 
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <span class="field-error" id="emailError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="phone"></i>
+              Phone Number
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="tel" 
+                id="phone" 
+                class="form-input" 
+                placeholder="+91 98765 43210"
+                autocomplete="tel"
+                required
+              />
+            </div>
+            <span class="field-error" id="phoneError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="lock"></i>
+              Password
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="password" 
+                class="form-input" 
+                placeholder="Create a strong password"
+                autocomplete="new-password"
+                required
+              />
+              <button type="button" class="toggle-password" id="togglePassword">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <div class="password-strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="strength-text" id="strengthText"></span>
+            <span class="field-error" id="passwordError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="lock"></i>
+              Confirm Password
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="confirmPassword" 
+                class="form-input" 
+                placeholder="Re-enter your password"
+                autocomplete="new-password"
+                required
+              />
+              <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <span class="field-error" id="confirmPasswordError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="remember-me">
+              <input type="checkbox" id="agreeTerms" required/>
+              <span class="custom-checkbox"></span>
+              I agree to the Terms & Conditions
+            </label>
+          </div>
+          
+          <button type="submit" class="auth-submit-btn" id="registerBtn">
+            <span class="btn-text">Create Account</span>
+            <div class="btn-loader" id="registerLoader">
+              <div class="projector-loader"></div>
+            </div>
+            <i data-lucide="arrow-right" class="btn-arrow"></i>
+          </button>
+          
+          <div class="auth-error-box" id="registerError">
+            <i data-lucide="alert-circle"></i>
+            <span id="registerErrorText"></span>
+          </div>
+          
+        </form>
+        
+        <p class="auth-switch-text">
+          Already have an account? 
+          <a href="login.html" class="auth-switch-link">
+            Sign in
+          </a>
+        </p>
+        
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/register.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

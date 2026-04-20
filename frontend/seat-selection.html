@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats - CineBook</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .seat-selection-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .show-info-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .show-details h2 {
+            color: white;
+            margin-bottom: 0.8rem;
+            font-size: 2rem;
+        }
+
+        .show-meta {
+            display: flex;
+            gap: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .show-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .seat-selection-main {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+        }
+
+        .seat-map-container {
+            background: #F8F9FA;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #E9ECEF;
+        }
+
+        .booking-summary {
+            background: white;
+            border: 2px solid #E9ECEF;
+            padding: 2rem;
+            border-radius: 15px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1F2937;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #E9ECEF;
+        }
+
+        .selected-seats-list {
+            margin-bottom: 1.5rem;
+            min-height: 100px;
+        }
+
+        .seat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: #F8F9FA;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .price-breakdown {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #F8F9FA;
+            border-radius: 10px;
+            border: 1px solid #E9ECEF;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            color: #4B5563;
+        }
+
+        .price-row.total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+            border-top: 2px solid #667eea;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        .proceed-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .proceed-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .proceed-btn:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .sticky-reminder {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #92400E;
+            border-left: 4px solid #F59E0B;
+            font-weight: 500;
+        }
+
+        @media (max-width: 968px) {
+            .seat-selection-main {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body class="grain-overlay">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="logo-circle">
+                <i data-lucide="film" style="color: var(--gold);"></i>
+            </div>
+            <span>CineBook</span>
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">My Bookings</a></li>
+            <li><a href="#" id="loginBtn">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-timer" id="countdownTimer">
+        <i data-lucide="clock"></i>
+        Time remaining: <span id="timerDisplay">10:00</span>
+    </div>
+
+    <div class="seat-selection-container">
+        <!-- Show Info Bar -->
+        <div class="show-info-bar">
+            <div class="show-details">
+                <h2 id="showMovieTitle">Movie Title</h2>
+                <div class="show-meta">
+                    <span><i data-lucide="map-pin"></i> <span id="showTheater">Theater</span></span>
+                    <span><i data-lucide="calendar"></i> <span id="showDate">Date</span></span>
+                    <span><i data-lucide="clock"></i> <span id="showTime">Time</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="seat-selection-main">
+            <!-- Seat Map -->
+            <div class="seat-map-container">
+                <div class="cinema-screen">SCREEN THIS WAY</div>
+                
+                <!-- Legend -->
+                <div class="seat-legend">
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%); border-color: #D1D5DB;"></div>
+                        <span style="font-weight: 600; color: #4B5563;">Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea;"></div>
+                        <span style="font-weight: 600; color: #667eea;">Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #F3F4F6; opacity: 0.5; border-color: #E5E7EB;"></div>
+                        <span style="font-weight: 600; color: #9CA3AF;">Booked</span>
+                    </div>
+                </div>
+                
+                <!-- Price Info -->
+                <div style="text-align: center; margin: 1rem 0; padding: 1.2rem; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); border-radius: 12px; border: 2px solid #C7D2FE;">
+                    <p style="font-size: 1rem; color: #4338CA; font-weight: 600;">
+                        💡 Check row labels on the left for seat category and pricing
+                    </p>
+                </div>
+                <!-- Seat Map -->
+                <div class="seat-map" id="seatMap">
+                    <div class="loading">
+                        <div class="film-projector"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Summary -->
+            <div class="booking-summary">
+                <h3 class="summary-title">Booking Summary</h3>
+                
+                <div class="selected-seats-list" id="selectedSeatsList">
+                    <p style="color: var(--text-secondary); text-align: center;">
+                        No seats selected
+                    </p>
+                </div>
+
+                <div class="price-breakdown" id="priceBreakdown" style="display: none;">
+                    <div class="price-row">
+                        <span>Base Price:</span>
+                        <span id="basePrice">₹0</span>
+                    </div>
+                    <div class="price-row" id="weekendSurchargeRow" style="display: none;">
+                        <span>Weekend Surcharge (20%):</span>
+                        <span id="weekendSurcharge">₹0</span>
+                    </div>
+                    <div class="price-row" id="firstShowSurchargeRow" style="display: none;">
+                        <span>First Show (30%):</span>
+                        <span id="firstShowSurcharge">₹0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>GST (18%):</span>
+                        <span id="gst">₹0</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total:</span>
+                        <span id="totalPrice">₹0</span>
+                    </div>
+                </div>
+
+                <button class="proceed-btn" id="proceedBtn" disabled>
+                    <i data-lucide="arrow-right"></i>
+                    Proceed to Payment
+                </button>
+
+                <div class="sticky-reminder">
+                    📌 Remember: No refund on day of show
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+        <p style="margin-top: 1rem; color: var(--gold);">&copy; 2024 CineBook. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/seat-selection.js"></script>
+</body>
+</html>

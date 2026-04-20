@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - CineBook</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .checkout-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .checkout-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        .booking-details-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px dashed var(--text-secondary);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-value {
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .movie-info-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .movie-info-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .seats-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .seat-badge {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .payment-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px;
+        }
+
+        .price-breakdown {
+            margin: 1.5rem 0;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            font-size: 1rem;
+        }
+
+        .price-row.total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            border-top: 2px solid var(--primary);
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        .payment-methods {
+            margin: 2rem 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid var(--text-secondary);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            background: rgba(139, 26, 47, 0.05);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(139, 26, 47, 0.1);
+        }
+
+        .payment-method input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .confirm-btn:hover {
+            background: #246a3f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 122, 79, 0.4);
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .terms-checkbox input {
+            margin-top: 0.2rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: rgba(45, 122, 79, 0.1);
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--success);
+        }
+
+        @media (max-width: 968px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body class="grain-overlay">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="logo-circle">
+                <i data-lucide="film" style="color: var(--gold);"></i>
+            </div>
+            <span>CineBook</span>
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">My Bookings</a></li>
+            <li><a href="#" id="loginBtn">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="checkout-container">
+        <!-- Header -->
+        <div class="checkout-header">
+            <h1>Review Your Booking</h1>
+            <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                Please review your booking details before proceeding to payment
+            </p>
+        </div>
+
+        <!-- Content -->
+        <div class="checkout-content">
+            <!-- Left Side - Booking Details -->
+            <div>
+                <div class="booking-details-card">
+                    <!-- Movie Info -->
+                    <div class="movie-info-section">
+                        <h3 id="checkoutMovieTitle">Movie Title</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <span><i data-lucide="star"></i> <span id="checkoutRating">UA</span></span>
+                            <span><i data-lucide="clock"></i> <span id="checkoutDuration">120</span> min</span>
+                            <span><i data-lucide="globe"></i> <span id="checkoutLanguage">English</span></span>
+                        </div>
+                    </div>
+
+                    <h4 class="section-title">Booking Details</h4>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="map-pin"></i>
+                            <span>Theater</span>
+                        </div>
+                        <div class="detail-value" id="checkoutTheater">Theater Name</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="calendar"></i>
+                            <span>Date</span>
+                        </div>
+                        <div class="detail-value" id="checkoutDate">Date</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="clock"></i>
+                            <span>Show Time</span>
+                        </div>
+                        <div class="detail-value" id="checkoutTime">Time</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="armchair"></i>
+                            <span>Selected Seats</span>
+                        </div>
+                        <div class="detail-value">
+                            <div class="seats-display" id="checkoutSeats"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="tag"></i>
+                            <span>Seat Category</span>
+                        </div>
+                        <div class="detail-value" id="checkoutCategory">GOLD</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i data-lucide="users"></i>
+                            <span>Number of Tickets</span>
+                        </div>
+                        <div class="detail-value" id="checkoutTicketCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Payment Summary -->
+            <div>
+                <div class="payment-summary">
+                    <h4 class="section-title">Payment Summary</h4>
+
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Base Price:</span>
+                            <span id="summaryBasePrice">₹0</span>
+                        </div>
+                        <div class="price-row" id="summaryWeekendRow" style="display: none;">
+                            <span>Weekend Surcharge (20%):</span>
+                            <span id="summaryWeekendSurcharge">₹0</span>
+                        </div>
+                        <div class="price-row" id="summaryFirstShowRow" style="display: none;">
+                            <span>First Show (30%):</span>
+                            <span id="summaryFirstShowSurcharge">₹0</span>
+                        </div>
+                        <div class="price-row">
+                            <span>GST (18%):</span>
+                            <span id="summaryGst">₹0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total Amount:</span>
+                            <span id="summaryTotal">₹0</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Select Payment Method</h4>
+                        
+                        <label class="payment-method selected">
+                            <input type="radio" name="payment" value="card" checked>
+                            <i data-lucide="credit-card"></i>
+                            <span>Credit/Debit Card</span>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="upi">
+                            <i data-lucide="smartphone"></i>
+                            <span>UPI Payment</span>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="wallet">
+                            <i data-lucide="wallet"></i>
+                            <span>Digital Wallet</span>
+                        </label>
+                    </div>
+
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="termsCheckbox">
+                        <label for="termsCheckbox">
+                            I agree to the <a href="#" style="color: var(--primary);">Terms & Conditions</a> 
+                            and understand that tickets are non-refundable on the day of show.
+                        </label>
+                    </div>
+
+                    <button class="confirm-btn" id="confirmPaymentBtn" disabled>
+                        <i data-lucide="lock"></i>
+                        Confirm & Pay
+                    </button>
+
+                    <div class="security-badge">
+                        <i data-lucide="shield-check"></i>
+                        <span>Secure Payment Gateway</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+        <p style="margin-top: 1rem; color: var(--gold);">&copy; 2024 CineBook. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

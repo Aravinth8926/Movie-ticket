@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - CineBook</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        .confirmation-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem;
+        }
+
+        .success-message {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-message h1 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-container {
+            position: relative;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border: 2px solid var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .booking-id-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            margin-top: 1rem;
+        }
+
+        .ticket-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--text-secondary);
+        }
+
+        .ticket-detail-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .ticket-detail-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .seats-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .seat-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="grain-overlay">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="logo-circle">
+                <i data-lucide="film" style="color: var(--gold);"></i>
+            </div>
+            <span>CineBook</span>
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">My Bookings</a></li>
+            <li><a href="#" id="loginBtn">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="confirmation-container">
+        <!-- Success Message -->
+        <div class="success-message">
+            <div class="success-icon">
+                <i data-lucide="check-circle" style="width: 50px; height: 50px; color: white;"></i>
+            </div>
+            <h1>Booking Confirmed!</h1>
+            <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                Your tickets have been booked successfully
+            </p>
+        </div>
+
+        <!-- Ticket -->
+        <div class="ticket-container">
+            <div class="ticket">
+                <!-- Left Section -->
+                <div class="ticket-left">
+                    <img src="" alt="Movie Poster" id="ticketPoster" style="width: 100%; border-radius: 10px;">
+                </div>
+
+                <!-- Center Section -->
+                <div class="ticket-center">
+                    <h2 id="ticketMovieTitle" style="color: var(--primary); margin-bottom: 1rem;">Movie Title</h2>
+                    
+                    <div class="ticket-detail-row">
+                        <span class="ticket-detail-label">Theater:</span>
+                        <span class="ticket-detail-value" id="ticketTheater">-</span>
+                    </div>
+                    
+                    <div class="ticket-detail-row">
+                        <span class="ticket-detail-label">Date:</span>
+                        <span class="ticket-detail-value" id="ticketDate">-</span>
+                    </div>
+                    
+                    <div class="ticket-detail-row">
+                        <span class="ticket-detail-label">Time:</span>
+                        <span class="ticket-detail-value" id="ticketTime">-</span>
+                    </div>
+                    
+                    <div class="ticket-detail-row">
+                        <span class="ticket-detail-label">Seats:</span>
+                        <div class="seats-display" id="ticketSeats"></div>
+                    </div>
+                    
+                    <div class="ticket-detail-row">
+                        <span class="ticket-detail-label">Category:</span>
+                        <span class="ticket-detail-value" id="ticketCategory">-</span>
+                    </div>
+                    
+                    <div class="ticket-detail-row" style="border: none; margin-top: 1rem;">
+                        <span class="ticket-detail-label" style="font-size: 1.2rem;">Total Amount:</span>
+                        <span class="ticket-detail-value" style="font-size: 1.5rem; color: var(--success);" id="ticketAmount">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Right Section -->
+                <div class="ticket-right">
+                    <div class="qr-code">
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.7rem;">
+                            QR CODE<br>
+                            ▓▓▓▓▓▓▓<br>
+                            ▓░░░░░▓<br>
+                            ▓░▓▓░▓<br>
+                            ▓░░░░░▓<br>
+                            ▓▓▓▓▓▓▓
+                        </div>
+                    </div>
+                    <div class="booking-id-display" id="ticketBookingId">BK-2024-XXXXX</div>
+                </div>
+            </div>
+
+            <!-- Confirmed Stamp -->
+            <div class="confirmed-stamp">CONFIRMED</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn btn-primary" onclick="downloadTicket()">
+                <i data-lucide="download"></i>
+                Download Ticket
+            </button>
+            <button class="action-btn btn-secondary" onclick="shareBooking()">
+                <i data-lucide="share-2"></i>
+                Share
+            </button>
+            <button class="action-btn btn-outline" onclick="window.location.href='history.html'">
+                <i data-lucide="ticket"></i>
+                View All Bookings
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+        <p style="margin-top: 1rem; color: var(--gold);">&copy; 2024 CineBook. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/confirmation.js"></script>
+</body>
+</html>

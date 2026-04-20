@@ -1,0 +1,123 @@
+{
+  "movies": [
+    {
+      "title": "The Grand Adventure",
+      "genre": ["Action", "Adventure", "Thriller"],
+      "duration": 145,
+      "rating": "UA",
+      "language": "English",
+      "releaseDate": "2024-01-15",
+      "posterUrl": "https://via.placeholder.com/250x350/8B1A2F/FFFFFF?text=The+Grand+Adventure",
+      "description": "An epic journey through uncharted territories where a team of explorers discovers ancient secrets that could change the world forever.",
+      "cast": ["John Smith", "Emma Watson", "Michael Chen", "Sarah Johnson"],
+      "director": "Christopher Nolan",
+      "isActive": true
+    },
+    {
+      "title": "Love in Paris",
+      "genre": ["Romance", "Drama"],
+      "duration": 120,
+      "rating": "U",
+      "language": "English",
+      "releaseDate": "2024-02-01",
+      "posterUrl": "https://via.placeholder.com/250x350/D4AF37/FFFFFF?text=Love+in+Paris",
+      "description": "A heartwarming tale of two strangers who meet in the city of love and discover that sometimes the best things in life are unexpected.",
+      "cast": ["Ryan Gosling", "Emma Stone", "Tom Hanks"],
+      "director": "Greta Gerwig",
+      "isActive": true
+    },
+    {
+      "title": "Space Odyssey 2024",
+      "genre": ["Sci-Fi", "Adventure"],
+      "duration": 160,
+      "rating": "UA",
+      "language": "English",
+      "releaseDate": "2024-03-10",
+      "posterUrl": "https://via.placeholder.com/250x350/9B59B6/FFFFFF?text=Space+Odyssey",
+      "description": "Humanity's first mission to colonize Mars faces unexpected challenges when they discover they're not alone in the universe.",
+      "cast": ["Matt Damon", "Jessica Chastain", "Chiwetel Ejiofor"],
+      "director": "Denis Villeneuve",
+      "isActive": true
+    },
+    {
+      "title": "The Comedy Club",
+      "genre": ["Comedy", "Drama"],
+      "duration": 105,
+      "rating": "UA",
+      "language": "English",
+      "releaseDate": "2024-01-20",
+      "posterUrl": "https://via.placeholder.com/250x350/2D7A4F/FFFFFF?text=Comedy+Club",
+      "description": "A struggling comedian gets one last chance to make it big, but success comes with unexpected complications.",
+      "cast": ["Kevin Hart", "Tiffany Haddish", "Steve Carell"],
+      "director": "Judd Apatow",
+      "isActive": true
+    },
+    {
+      "title": "Mystery Manor",
+      "genre": ["Mystery", "Thriller", "Horror"],
+      "duration": 130,
+      "rating": "A",
+      "language": "English",
+      "releaseDate": "2024-04-25",
+      "posterUrl": "https://via.placeholder.com/250x350/1A0A0F/FFFFFF?text=Mystery+Manor",
+      "description": "A group of strangers are invited to a mysterious mansion where they must solve a deadly puzzle to survive the night.",
+      "cast": ["Benedict Cumberbatch", "Tilda Swinton", "Oscar Isaac"],
+      "director": "Rian Johnson",
+      "isActive": true
+    }
+  ],
+  "theaters": [
+    {
+      "name": "Cineplex Grand",
+      "location": "Downtown, Main Street",
+      "totalSeats": 150,
+      "seatLayout": {
+        "rows": 10,
+        "seatsPerRow": 15,
+        "categories": [
+          {
+            "name": "PLATINUM",
+            "rows": ["A", "B"],
+            "price": 400
+          },
+          {
+            "name": "GOLD",
+            "rows": ["C", "D", "E"],
+            "price": 250
+          },
+          {
+            "name": "SILVER",
+            "rows": ["F", "G", "H", "I", "J"],
+            "price": 150
+          }
+        ]
+      }
+    },
+    {
+      "name": "MovieMax Theater",
+      "location": "Westside Mall, 2nd Floor",
+      "totalSeats": 120,
+      "seatLayout": {
+        "rows": 8,
+        "seatsPerRow": 15,
+        "categories": [
+          {
+            "name": "PLATINUM",
+            "rows": ["A", "B"],
+            "price": 400
+          },
+          {
+            "name": "GOLD",
+            "rows": ["C", "D"],
+            "price": 250
+          },
+          {
+            "name": "SILVER",
+            "rows": ["E", "F", "G", "H"],
+            "price": 150
+          }
+        ]
+      }
+    }
+  ]
+}

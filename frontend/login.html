@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - CineBook</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  
+  <div class="auth-page">
+    
+    <!-- LEFT PANEL -->
+    <div class="auth-left-panel">
+      <div class="film-strip-left">
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+      </div>
+      
+      <div class="auth-left-content">
+        <div class="cinema-logo-big">
+          <i data-lucide="film"></i>
+          <span>CineBook</span>
+        </div>
+        <blockquote class="cinema-quote">
+          Every great story begins<br>with a single ticket
+        </blockquote>
+        <div class="floating-elements">
+          <div class="float-popcorn">🍿</div>
+          <div class="float-star">⭐</div>
+          <div class="float-ticket">🎫</div>
+        </div>
+      </div>
+      
+      <div class="film-strip-right">
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+        <div class="film-frame"></div>
+      </div>
+    </div>
+    
+    <!-- RIGHT PANEL - FORM -->
+    <div class="auth-right-panel">
+      <div class="auth-form-container">
+        
+        <!-- Logo (mobile only) -->
+        <div class="mobile-logo">
+          <i data-lucide="film"></i>
+          <span>CineBook</span>
+        </div>
+        
+        <div class="auth-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to book your next movie experience</p>
+        </div>
+        
+        <!-- Social Login -->
+        <div class="social-login-row">
+          <button class="social-btn google-btn" type="button">
+            <svg width="18" height="18" viewBox="0 0 18 18">
+              <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
+              <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+              <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707 0-.593.102-1.17.282-1.709V4.958H.957C.347 6.173 0 7.548 0 9c0 1.452.348 2.827.957 4.042l3.007-2.335z"/>
+              <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
+            </svg>
+            Continue with Google
+          </button>
+        </div>
+        
+        <div class="divider-row">
+          <span class="divider-line"></span>
+          <span class="divider-text">or sign in with email</span>
+          <span class="divider-line"></span>
+        </div>
+        
+        <!-- LOGIN FORM -->
+        <form class="auth-form" id="loginForm">
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="mail"></i>
+              Email Address
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="email" 
+                id="loginEmail" 
+                class="form-input" 
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+              <div class="input-focus-ring"></div>
+            </div>
+            <span class="field-error" id="emailError"></span>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              <i data-lucide="lock"></i>
+              Password
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="loginPassword" 
+                class="form-input" 
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="toggle-password" id="toggleLoginPass">
+                <i data-lucide="eye"></i>
+              </button>
+              <div class="input-focus-ring"></div>
+            </div>
+            <span class="field-error" id="passwordError"></span>
+          </div>
+          
+          <div class="form-row-flex">
+            <label class="remember-me">
+              <input type="checkbox" id="rememberMe"/>
+              <span class="custom-checkbox"></span>
+              Remember me for 30 days
+            </label>
+            <a href="forgot-password.html" class="forgot-link">
+              Forgot password?
+            </a>
+          </div>
+          
+          <button type="submit" class="auth-submit-btn" id="loginBtn">
+            <span class="btn-text">Sign In</span>
+            <div class="btn-loader" id="loginLoader">
+              <div class="projector-loader"></div>
+            </div>
+            <i data-lucide="arrow-right" class="btn-arrow"></i>
+          </button>
+          
+          <div class="auth-error-box" id="loginError">
+            <i data-lucide="alert-circle"></i>
+            <span id="loginErrorText"></span>
+          </div>
+          
+        </form>
+        
+        <p class="auth-switch-text">
+          New to CineBook? 
+          <a href="register.html" class="auth-switch-link">
+            Create an account
+          </a>
+        </p>
+        
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
