@@ -1,0 +1,49 @@
+═══════════════════════════════════════════════════════════
+  🚀 QUICK GITHUB PUSH - COPY & PASTE THESE COMMANDS
+═══════════════════════════════════════════════════════════
+
+STEP 1: Create a new repository on GitHub
+→ Go to: https://github.com/new
+→ Name: cinebook-movie-booking
+→ DO NOT initialize with README
+→ Click "Create repository"
+
+STEP 2: Copy and run these commands (replace YOUR_USERNAME):
+───────────────────────────────────────────────────────────
+
+git remote add origin https://github.com/YOUR_USERNAME/cinebook-movie-booking.git
+git branch -M main
+git push -u origin main
+
+───────────────────────────────────────────────────────────
+
+STEP 3: Enter your GitHub credentials when prompted
+→ Username: your_github_username
+→ Password: your_personal_access_token (NOT your GitHub password!)
+
+═══════════════════════════════════════════════════════════
+
+✅ WHAT'S READY TO PUSH:
+• 77 files
+• 15,060+ lines of code
+• 2 commits
+• Complete README.md
+• MIT License
+• .gitignore configured
+
+═══════════════════════════════════════════════════════════
+
+📝 NEED A PERSONAL ACCESS TOKEN?
+1. Go to: https://github.com/settings/tokens
+2. Click "Generate new token (classic)"
+3. Select scope: "repo"
+4. Copy the token
+5. Use it as your password when pushing
+
+═══════════════════════════════════════════════════════════
+
+🎉 AFTER PUSHING:
+Your repo will be live at:
+https://github.com/YOUR_USERNAME/cinebook-movie-booking
+
+═══════════════════════════════════════════════════════════
